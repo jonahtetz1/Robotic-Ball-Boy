@@ -10,19 +10,11 @@ Adafruit_DCMotor *myMotor1 = AFMS.getMotor(1);  // Declare our motor ports
 Adafruit_DCMotor *myMotor4 = AFMS.getMotor(4);
 Adafruit_DCMotor *myMotor3 = AFMS.getMotor(3);
 int yVars[100];
-int last = 0;
-unsigned long prev;
-int grig;
 int x=pixy.blocks[1].x;
 int y=pixy.blocks[1].y;
-float w1 = x*2;
-float w2 = x-sqrt(3/2)*y;
-float w3 = x+sqrt(3/2)*y;
 uint16_t blocks;
-int poje=2;
-int preet=2;
-int greeg=2;
-int plooj=0;
+int determinantA=2;
+int determinantB=2;
 void setup()
 {
   Serial.begin(250000); // 9600 baud for the serial *console* (not for the UART connected to Pixy)
@@ -112,8 +104,8 @@ else{*/
     cage.write(70);
     SpinRight(40);
     delay(2500);
-     poje=1;
-     preet=2;
+     determinantA=1;
+     determinantB=2;
    }//}
 }
 }
@@ -133,8 +125,8 @@ else{*/
     cage.write(70);
     SpinRight(40);
     delay(2500);
-     poje=1;
-     preet=2;
+     determinantA=1;
+     determinantB=2;
    }//}
 }
 }
@@ -158,7 +150,7 @@ void seenHomez (){
     SpinRight(80);
     delay(1000);
     yeet();
-    preet=1;
+    determinantB=1;
    }}
   }
 }
@@ -183,11 +175,11 @@ void seenHome (){
     yeet();
    }}
   }
-  preet=1;
+  determinantB=1;
 }
 void loop(){
   blocks = pixy.getBlocks();
-  if (poje==2){
+  if (determinantA==2){
   SpinRight(40);
   if (pixy.blocks[0].signature==1 || pixy.blocks[1].signature==1){
   if (pixy.blocks[0].signature==1){
@@ -196,8 +188,8 @@ void loop(){
   if (pixy.blocks[1].signature==1){ 
   seenBall();
   }}}
-  if (poje==1){
-  if (preet==2){
+  if (determinantA==1){
+  if (determinantB==2){
     SpinRight(40);
         if (pixy.blocks[0].signature==2 || pixy.blocks[1].signature==2){
     if (pixy.blocks[0].signature==2){
